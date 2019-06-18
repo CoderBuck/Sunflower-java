@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.zip.Inflater;
+import java.util.Objects;
 
 import me.buck.sunflower_java.R;
 import me.buck.sunflower_java.data.PlantAndGardenPlantings;
 
 /**
- * Created by buck on 2019-06-18
+ * Created by buck on 2019-06-18Ø
  */
 public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, GardenPlantingAdapter.Holder> {
 
@@ -49,13 +49,23 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
 
     static class InnerDiffCallback extends DiffUtil.ItemCallback<PlantAndGardenPlantings> {
         @Override
-        public boolean areItemsTheSame(@NonNull PlantAndGardenPlantings oldItem, @NonNull PlantAndGardenPlantings newItem) {
-            return oldItem.getPlant().getPlantId().equals(newItem.getPlant().getPlantId());
+        public boolean areItemsTheSame(@NonNull PlantAndGardenPlantings oldItem,
+                                       @NonNull PlantAndGardenPlantings newItem) {
+
+            return Objects.equals(
+                    oldItem.getPlant().getPlantId(),
+                    newItem.getPlant().getPlantId()
+            );
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull PlantAndGardenPlantings oldItem, @NonNull PlantAndGardenPlantings newItem) {
-            return oldItem.getPlant().equals(newItem.getPlant());
+        public boolean areContentsTheSame(@NonNull PlantAndGardenPlantings oldItem,
+                                          @NonNull PlantAndGardenPlantings newItem) {
+            return Objects.equals(
+                    oldItem.getPlant(),
+                    newItem.getPlant()
+            );
+
         }
     }
 
