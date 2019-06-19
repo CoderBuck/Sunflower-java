@@ -1,5 +1,7 @@
 package me.buck.sunflower_java.data;
 
+import androidx.room.Embedded;
+
 import java.util.Objects;
 
 /**
@@ -7,7 +9,10 @@ import java.util.Objects;
  */
 public class PlantAndGardenPlantings {
 
+    @Embedded
     private Plant plant;
+
+
 
     public Plant getPlant() {
         return plant;

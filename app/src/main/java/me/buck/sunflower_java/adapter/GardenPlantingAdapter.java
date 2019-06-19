@@ -49,9 +49,7 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
 
     static class InnerDiffCallback extends DiffUtil.ItemCallback<PlantAndGardenPlantings> {
         @Override
-        public boolean areItemsTheSame(@NonNull PlantAndGardenPlantings oldItem,
-                                       @NonNull PlantAndGardenPlantings newItem) {
-
+        public boolean areItemsTheSame(@NonNull PlantAndGardenPlantings oldItem, @NonNull PlantAndGardenPlantings newItem) {
             return Objects.equals(
                     oldItem.getPlant().getPlantId(),
                     newItem.getPlant().getPlantId()
@@ -59,8 +57,7 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull PlantAndGardenPlantings oldItem,
-                                          @NonNull PlantAndGardenPlantings newItem) {
+        public boolean areContentsTheSame(@NonNull PlantAndGardenPlantings oldItem, @NonNull PlantAndGardenPlantings newItem) {
             return Objects.equals(
                     oldItem.getPlant(),
                     newItem.getPlant()

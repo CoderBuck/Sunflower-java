@@ -1,12 +1,20 @@
 package me.buck.sunflower_java.data;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
  * Created by buck on 2019-06-18
  */
+@Entity(tableName = "plants")
 public class Plant {
 
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     private String plantId;
 
     private String name;
@@ -24,6 +32,14 @@ public class Plant {
         this.wateringInterval = wateringInterval;
         this.imageUrl = imageUrl;
     }
+
+    public boolean shouldBeWatered(Calendar since, Calendar lastWaterDate) {
+        lastWaterDate.add(Calendar.DAY_OF_YEAR,wateringInterval);
+        return since.after(lastWaterDate);
+    }
+
+
+
 
     public String getPlantId() {
         return plantId;
@@ -65,5 +81,10 @@ public class Plant {
     @Override
     public int hashCode() {
         return Objects.hash(plantId, name, description, growZoneNumber, wateringInterval, imageUrl);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
