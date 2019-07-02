@@ -1,7 +1,10 @@
 package me.buck.sunflower_java.data;
 
 import androidx.room.Embedded;
+import androidx.room.Relation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,12 +13,19 @@ import java.util.Objects;
 public class PlantAndGardenPlantings {
 
     @Embedded
-    private Plant plant;
+    public Plant plant;
+
+    @Relation(parentColumn = "id", entityColumn = "plant_id")
+    public List<GardenPlanting> gardenPlantings = new ArrayList<>();
 
 
 
     public Plant getPlant() {
         return plant;
+    }
+
+    public List<GardenPlanting> getGardenPlantings() {
+        return gardenPlantings;
     }
 
     @Override

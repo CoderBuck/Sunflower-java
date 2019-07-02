@@ -1,7 +1,10 @@
 package me.buck.sunflower_java.data;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
 
@@ -9,22 +12,30 @@ import java.util.Calendar;
  * Created by gwf on 2019/6/19
  */
 @Entity(
-        tableName = "garden_plantings"
+        tableName = "garden_plantings",
+        foreignKeys = @ForeignKey(
+                entity = Plant.class,
+                parentColumns = "id",
+                childColumns = "plant_id"
+        ),
+        indices = @Index("plant_id")
 )
 public class GardenPlanting {
 
+    @ColumnInfo(name = "plant_id")
     private String   plantId;
-    private Calendar plantDate     = Calendar.getInstance();
-    private Calendar lastWaterDate = Calendar.getInstance();
+    @ColumnInfo(name = "plant_date")
+    private Calendar plantDate        = Calendar.getInstance();
+    @ColumnInfo(name = "last_water_date")
+    private Calendar lastWaterDate    = Calendar.getInstance();
 
-    private long gardenPlantingId = 0;
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private long     gardenPlantingId = 0;
 
-
-
-
-
-
-
+    public GardenPlanting(String plantId) {
+        this.plantId = plantId;
+    }
 
     public String getPlantId() {
         return plantId;
