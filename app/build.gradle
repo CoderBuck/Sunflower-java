@@ -42,6 +42,7 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.5"
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.annimon:stream:1.2.1'
 
     // Testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:2.0.1"
