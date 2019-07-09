@@ -29,6 +29,7 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
     @Override
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
+                // TODO: 2019/7/9 list item
                 .inflate(R.layout.list_item, parent, false);
         return new Holder(view);
     }
@@ -37,8 +38,6 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         PlantAndGardenPlantings item = getItem(position);
         holder.itemView.setTag(item);
-
-
     }
 
     class Holder extends RecyclerView.ViewHolder {
