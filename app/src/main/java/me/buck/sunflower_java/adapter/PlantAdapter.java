@@ -25,10 +25,8 @@ import me.buck.sunflower_java.data.Plant;
  */
 public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
 
-    private static PlantDiffCallback sDiffCallback = new PlantDiffCallback();
-
     public PlantAdapter() {
-        super(sDiffCallback);
+        super(PlantDiffCallback.create());
     }
 
     @NonNull
@@ -74,7 +72,6 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
 
     static class PlantDiffCallback extends DiffUtil.ItemCallback<Plant> {
 
-
         @Override
         public boolean areItemsTheSame(@NonNull Plant oldItem, @NonNull Plant newItem) {
             return Objects.equals(oldItem.getPlantId(), newItem.getPlantId());
@@ -83,6 +80,10 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
         @Override
         public boolean areContentsTheSame(@NonNull Plant oldItem, @NonNull Plant newItem) {
             return Objects.equals(oldItem, newItem);
+        }
+
+        public static PlantDiffCallback create() {
+            return new PlantDiffCallback();
         }
     }
 }
