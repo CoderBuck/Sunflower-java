@@ -30,7 +30,7 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
     public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 // TODO: 2019/7/9 list item
-                .inflate(R.layout.list_item, parent, false);
+                .inflate(R.layout.list_item_garden_planting, parent, false);
         return new Holder(view);
     }
 
