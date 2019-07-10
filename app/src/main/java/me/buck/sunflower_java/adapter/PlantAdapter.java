@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import me.buck.sunflower_java.R;
 import me.buck.sunflower_java.data.Plant;
 
@@ -38,6 +40,10 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
         Plant plant = getItem(position);
         holder.itemView.setTag(plant);
         holder.itemView.setOnClickListener(createOnClickListener(plant.getPlantId()));
+        Glide.with(holder.img.getContext())
+                .load(plant.getImageUrl())
+                .into(holder.img);
+        holder.title.setText(plant.getName());
     }
 
     private View.OnClickListener createOnClickListener(String plantId) {

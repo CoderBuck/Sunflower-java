@@ -3,11 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_garden.xml"
-    app:startDestination="@id/testFragment">
+    app:startDestination="@id/gardenFragment">
 
     <fragment
-        android:id="@+id/testFragment"
-        android:name="me.buck.sunflower_java.TestFragment"
-        android:label="test_fragment"
-        tools:layout="@layout/test_fragment" />
+        android:id="@+id/gardenFragment"
+        android:name="me.buck.sunflower_java.GardenFragment"
+        android:label="garden_fragment"
+        tools:layout="@layout/garden_fragment">
+
+        <action
+            android:id="@+id/action_gardenFragment_to_plantDetailFragment"
+            app:destination="@id/plantDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plantListFragment"
+        android:name="me.buck.sunflower_java.PlantListFragment"
+        android:label="plant_list_fragment"
+        tools:layout="@layout/plant_list_fragment">
+
+        <action
+            android:id="@+id/action_plantListFragment_to_plantDetailFragment"
+            app:destination="@id/plantDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/plantDetailFragment"
+        android:name="me.buck.sunflower_java.PlantDetailFragment"
+        android:label="plant_detail_fragment"
+        tools:layout="@layout/plant_detail_fragment">
+        <argument
+            android:name="plantId"
+            app:argType="string" />
+    </fragment>
 </navigation>
