@@ -7,12 +7,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Objects;
+
+import me.buck.sunflower_java.PlantListFragmentDirections;
 import me.buck.sunflower_java.R;
 import me.buck.sunflower_java.data.Plant;
 
@@ -47,11 +51,12 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
     }
 
     private View.OnClickListener createOnClickListener(String plantId) {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        return v -> {
+            Navigation
+                    .findNavController(v)
+                    .navigate(
+                            PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(plantId)
+                    );
         };
     }
 
@@ -72,12 +77,12 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
 
         @Override
         public boolean areItemsTheSame(@NonNull Plant oldItem, @NonNull Plant newItem) {
-            return oldItem.getPlantId() == newItem.getPlantId();
+            return Objects.equals(oldItem.getPlantId(), newItem.getPlantId());
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull Plant oldItem, @NonNull Plant newItem) {
-            return oldItem.equals(newItem);
+            return Objects.equals(oldItem, newItem);
         }
     }
 }
