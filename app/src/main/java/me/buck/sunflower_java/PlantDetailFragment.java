@@ -9,10 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import me.buck.sunflower_java.util.InjectorUtils;
+import me.buck.sunflower_java.viewmodels.PlantDetailViewModel;
+
 /**
  * Created by buck on 2019-06-18
  */
 public class PlantDetailFragment extends Fragment {
+
+    private PlantDetailFragmentArgs mArgs;
+    private String                  mShareText;
+    private PlantDetailViewModel    mViewModel =
+            InjectorUtils.providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId()).create(PlantDetailViewModel.class);
 
     @Nullable
     @Override
