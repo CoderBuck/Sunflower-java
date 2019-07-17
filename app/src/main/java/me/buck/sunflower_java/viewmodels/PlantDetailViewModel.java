@@ -17,6 +17,7 @@ public class PlantDetailViewModel extends ViewModel {
     private PlantRepository          mPlantRepository;
     private GardenPlantingRepository mGardenPlantingRepository;
     private String                   mPlantId;
+
     private LiveData<Boolean> mIsPlanted;
     private LiveData<Plant> mPlant;
 
@@ -28,8 +29,7 @@ public class PlantDetailViewModel extends ViewModel {
         init();
     }
 
-    private LiveData<Boolean> mIsPlant;
-    private LiveData<Plant>   mPlantLiveData;
+
 
     private void init() {
         LiveData<GardenPlanting> gardenPlantingForPlant = mGardenPlantingRepository.getGardenPlantingForPlant(mPlantId);
@@ -49,7 +49,23 @@ public class PlantDetailViewModel extends ViewModel {
         super.onCleared();
     }
 
+    public PlantRepository getPlantRepository() {
+        return mPlantRepository;
+    }
 
+    public GardenPlantingRepository getGardenPlantingRepository() {
+        return mGardenPlantingRepository;
+    }
 
+    public String getPlantId() {
+        return mPlantId;
+    }
 
+    public LiveData<Boolean> getIsPlanted() {
+        return mIsPlanted;
+    }
+
+    public LiveData<Plant> getPlant() {
+        return mPlant;
+    }
 }

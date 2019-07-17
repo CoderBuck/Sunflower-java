@@ -36,9 +36,7 @@ public class GardenFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.garden_fragment, container, false);
         ButterKnife.bind(this, view);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         mAdapter = new GardenPlantingAdapter();
-        mGardenList.setLayoutManager(manager);
         mGardenList.setAdapter(mAdapter);
 
         subscribeUi();
