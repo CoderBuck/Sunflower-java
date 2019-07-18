@@ -44,4 +44,21 @@ public class PlantListViewModel extends ViewModel {
     public boolean isFiltered() {
         return mGrowZoneNumber.getValue() != NO_GROW_ZONE;
     }
+
+
+    public static int getNoGrowZone() {
+        return NO_GROW_ZONE;
+    }
+
+    public PlantRepository getPlantRepository() {
+        return mPlantRepository;
+    }
+
+    public MutableLiveData<Integer> getGrowZoneNumber() {
+        return mGrowZoneNumber;
+    }
+
+    public LiveData<List<Plant>> getPlants() {
+        return mPlants;
+    }
 }
