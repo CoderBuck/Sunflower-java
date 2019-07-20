@@ -28,8 +28,7 @@ public class GardenFragment extends Fragment {
     @BindView(R.id.empty_garden) TextView              mEmptyGarden;
     private                      GardenPlantingAdapter mAdapter;
 
-    private GardenPlantingListViewModel mViewModel =
-            InjectorUtils.provideGardenPlantingListViewModelFactory(requireContext()).create(GardenPlantingListViewModel.class);
+    private GardenPlantingListViewModel mViewModel;
 
     @Nullable
     @Override
@@ -38,7 +37,8 @@ public class GardenFragment extends Fragment {
         ButterKnife.bind(this, view);
         mAdapter = new GardenPlantingAdapter();
         mGardenList.setAdapter(mAdapter);
-
+        mViewModel =
+                InjectorUtils.provideGardenPlantingListViewModelFactory(requireContext()).create(GardenPlantingListViewModel.class);
         subscribeUi();
 
         return view;

@@ -1,5 +1,6 @@
 package me.buck.sunflower_java.data;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,6 +16,7 @@ public class Plant {
 
     @PrimaryKey
     @ColumnInfo(name = "id")
+    @NonNull
     private String plantId;
 
     private String name;
@@ -43,6 +45,10 @@ public class Plant {
 
     public String getPlantId() {
         return plantId;
+    }
+
+    public void setPlantId(String plantId) {
+        this.plantId = plantId;
     }
 
     public String getName() {
