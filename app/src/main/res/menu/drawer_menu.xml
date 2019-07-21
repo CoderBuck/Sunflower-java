@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/garden_fragment"
-        android:title="My garden"
+        android:title="@string/my_garden_title"
         />
 
     <item android:id="@+id/plant_list_fragment"
-        android:title="Plant list"
+        android:title="@string/plant_list_title"
         />
 
 </menu>
