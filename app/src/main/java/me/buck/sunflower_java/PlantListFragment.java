@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.buck.sunflower_java.adapter.PlantAdapter;
 import me.buck.sunflower_java.util.InjectorUtils;
 import me.buck.sunflower_java.viewmodels.PlantListViewModel;
@@ -25,20 +26,22 @@ import me.buck.sunflower_java.viewmodels.PlantListViewModel;
 public class PlantListFragment extends Fragment {
 
 
-    @BindView(R.id.plant_list) RecyclerView       mPlantList;
-    private                    PlantListViewModel mViewModel;
+    @BindView(R.id.plant_list) RecyclerView mPlantList;
+
+    private PlantListViewModel mViewModel;
+    private Unbinder mUnbinder;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.plant_list_fragment, container, false);
-        ButterKnife.bind(inflate);
+        mUnbinder = ButterKnife.bind(this,inflate);
         mViewModel = InjectorUtils.providePlantListViewModelFactory(getContext()).create(PlantListViewModel.class);
 
         PlantAdapter adapter = new PlantAdapter();
         mPlantList.setAdapter(adapter);
 
-        mViewModel.getPlants().observe(this,plants -> {
+        mViewModel.getPlants().observe(this, plants -> {
             if (plants != null) {
                 adapter.submitList(plants);
             }
@@ -51,7 +54,7 @@ public class PlantListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_plant_list,menu);
+        inflater.inflate(R.menu.menu_plant_list, menu);
     }
 
     @Override
@@ -63,5 +66,11 @@ public class PlantListFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 }

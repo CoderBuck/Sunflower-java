@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
@@ -18,6 +18,7 @@ import me.buck.sunflower_java.adapter.GardenPlantingAdapter;
 import me.buck.sunflower_java.util.InjectorUtils;
 import me.buck.sunflower_java.util.ListUtils;
 import me.buck.sunflower_java.viewmodels.GardenPlantingListViewModel;
+import me.buck.sunflower_java.viewmodels.GardenPlantingListViewModelFactory;
 
 /**
  * Created by buck on 2019-06-18
@@ -38,8 +39,9 @@ public class GardenFragment extends Fragment {
         ButterKnife.bind(this, view);
         mAdapter = new GardenPlantingAdapter();
         mGardenList.setAdapter(mAdapter);
-        mViewModel =
-                InjectorUtils.provideGardenPlantingListViewModelFactory(requireContext()).create(GardenPlantingListViewModel.class);
+
+        GardenPlantingListViewModelFactory factory = InjectorUtils.provideGardenPlantingListViewModelFactory(getContext());
+        mViewModel = ViewModelProviders.of(this, factory).get(GardenPlantingListViewModel.class);
         subscribeUi();
 
         return view;
@@ -49,7 +51,9 @@ public class GardenFragment extends Fragment {
     private void subscribeUi() {
         mViewModel.getGardenPlantings().observe(getViewLifecycleOwner(), plantings -> {
             boolean empty = ListUtils.isNullOrEmpty(plantings);
-            mEmptyGarden.setVisibility(empty ? View.GONE : View.VISIBLE);
+            mEmptyGarden.setVisibility(!empty ? View.GONE : View.VISIBLE);
+            mGardenList.setVisibility(empty ? View.GONE : View.VISIBLE);
+
         });
 
         mViewModel.getPlantAndGardenPlantings().observe(getViewLifecycleOwner(), result -> {

@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
@@ -28,7 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.buck.sunflower_java.util.InjectorUtils;
+import me.buck.sunflower_java.util.Utils;
 import me.buck.sunflower_java.viewmodels.PlantDetailViewModel;
+import me.buck.sunflower_java.viewmodels.PlantDetailViewModelFactory;
 
 /**
  * Created by buck on 2019-06-18
@@ -47,28 +50,28 @@ public class PlantDetailFragment extends Fragment {
 
     private PlantDetailFragmentArgs mArgs;
     private String                  mShareText;
-    private PlantDetailViewModel    mViewModel =
-            InjectorUtils.providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId()).create(PlantDetailViewModel.class);
+    private PlantDetailViewModel    mViewModel;
+    private Unbinder                mUnbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mArgs = PlantDetailFragmentArgs.fromBundle(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.plant_detail_fragment, container, false);
-        Unbinder bind = ButterKnife.bind(inflate);
-
-        mViewModel = InjectorUtils.providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId()).create(PlantDetailViewModel.class);
-
+        mUnbinder = ButterKnife.bind(this, inflate);
+        mArgs = PlantDetailFragmentArgs.fromBundle(getArguments());
+        PlantDetailViewModelFactory factory = InjectorUtils
+                .providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId());
+        mViewModel = ViewModelProviders.of(this, factory).get(PlantDetailViewModel.class);
         mViewModel.getPlant().observe(this, plant -> {
             mToolbarLayout.setTitle(plant.getName());
             Glide.with(getActivity()).load(plant.getImageUrl()).into(mDetailImage);
             mPlantName.setText(plant.getName());
-            mPlantWatering.setText(plant.getWateringInterval());
+            Utils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
             mPlantDescription.setText(plant.getDescription());
 
             if (plant == null) {
@@ -103,7 +106,7 @@ public class PlantDetailFragment extends Fragment {
 
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            }else{
+            } else {
                 chooserIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
             }
             startActivity(chooserIntent);
@@ -112,5 +115,11 @@ public class PlantDetailFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mUnbinder.unbind();
     }
 }
