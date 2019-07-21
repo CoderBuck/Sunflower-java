@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/gardenFragment"
         android:name="me.buck.sunflower_java.GardenFragment"
-        android:label="garden_fragment"
+        android:label="@string/my_garden_title"
         tools:layout="@layout/garden_fragment">
 
         <action
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/plantListFragment"
         android:name="me.buck.sunflower_java.PlantListFragment"
-        android:label="plant_list_fragment"
+        android:label="@string/plant_list_title"
         tools:layout="@layout/plant_list_fragment">
 
         <action
@@ -39,7 +39,7 @@
     <fragment
         android:id="@+id/plantDetailFragment"
         android:name="me.buck.sunflower_java.PlantDetailFragment"
-        android:label="plant_detail_fragment"
+        android:label="@string/plant_details_title"
         tools:layout="@layout/plant_detail_fragment">
         <argument
             android:name="plantId"

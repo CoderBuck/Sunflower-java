@@ -24,9 +24,10 @@ import me.buck.sunflower_java.viewmodels.GardenPlantingListViewModel;
  */
 public class GardenFragment extends Fragment {
 
-    @BindView(R.id.garden_list)  RecyclerView          mGardenList;
-    @BindView(R.id.empty_garden) TextView              mEmptyGarden;
-    private                      GardenPlantingAdapter mAdapter;
+    @BindView(R.id.garden_list)  RecyclerView mGardenList;
+    @BindView(R.id.empty_garden) TextView     mEmptyGarden;
+
+    private GardenPlantingAdapter mAdapter;
 
     private GardenPlantingListViewModel mViewModel;
 
