@@ -1,8 +1,9 @@
 package me.buck.sunflower_java.util;
 
 import android.content.res.Resources;
-import android.text.SpannableStringBuilder;
 import android.widget.TextView;
+
+import com.blankj.utilcode.util.SpanUtils;
 
 import me.buck.sunflower_java.R;
 
@@ -14,12 +15,11 @@ public class Utils {
     public static void bindingWateringText(TextView textView, int wateringInterval) {
         Resources resources = textView.getContext().getResources();
         String quantityString = resources.getQuantityString(R.plurals.watering_needs_suffix, wateringInterval, wateringInterval);
-//        new SpannableStringBuilder()
-        StringBuilder stringBuilder = new StringBuilder()
-                .append(resources.getString(R.string.watering_needs_prefix))
+        String prefix = resources.getString(R.string.watering_needs_prefix);
+        SpanUtils.with(textView)
+                .append(prefix).setBold()
                 .append(" ")
-                .append(quantityString);
-
-        textView.setText(stringBuilder.toString());
+                .append(quantityString).setItalic()
+                .create();
     }
 }
