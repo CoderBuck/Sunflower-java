@@ -72,7 +72,7 @@ public class PlantDetailFragment extends Fragment {
             Glide.with(getActivity()).load(plant.getImageUrl()).into(mDetailImage);
             mPlantName.setText(plant.getName());
             CommonUtils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
-            mPlantDescription.setText(plant.getDescription());
+            CommonUtils.bindingHtml(mPlantDescription,plant.getDescription());
 
             if (plant == null) {
                 mShareText = "";

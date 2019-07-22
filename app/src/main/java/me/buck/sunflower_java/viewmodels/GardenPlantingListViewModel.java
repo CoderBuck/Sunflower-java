@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.annimon.stream.Stream;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,17 +27,8 @@ public class GardenPlantingListViewModel extends ViewModel {
     public LiveData<List<GardenPlanting>> getGardenPlantings() {return mRepository.getGardenPlantings();}
 
     public LiveData<List<PlantAndGardenPlantings>> getPlantAndGardenPlantings() {
-        LiveData<List<PlantAndGardenPlantings>> plantingsLD  = mRepository.getPlantAndGardenPlantings();
-        Transformations.map(plantingsLD,input -> {
-            Iterator<PlantAndGardenPlantings> iterator = input.iterator();
-            while (iterator.hasNext()) {
-                PlantAndGardenPlantings next = iterator.next();
-                if (next.getGardenPlantings().isEmpty()) {
-                    iterator.remove();
-                }
-            }
-            return input;
-        });
-        return plantingsLD;
+        return Transformations.map(mRepository.getPlantAndGardenPlantings(), plantings -> Stream.of(plantings)
+                .filter(it -> !it.getGardenPlantings().isEmpty())
+                .toList());
     }
 }

@@ -1,7 +1,10 @@
 package me.buck.sunflower_java.util;
 
 import android.content.res.Resources;
+import android.text.Spanned;
 import android.widget.TextView;
+
+import androidx.core.text.HtmlCompat;
 
 import com.blankj.utilcode.util.SpanUtils;
 
@@ -21,5 +24,14 @@ public class CommonUtils {
                 .append(" ")
                 .append(quantityString).setItalic()
                 .create();
+    }
+
+    public static void bindingHtml(TextView textView, String html) {
+        if (html == null) {
+            textView.setText("");
+        } else {
+            Spanned fromHtml = HtmlCompat.fromHtml(html, HtmlCompat.FROM_HTML_MODE_COMPACT);
+            textView.setText(fromHtml);
+        }
     }
 }
