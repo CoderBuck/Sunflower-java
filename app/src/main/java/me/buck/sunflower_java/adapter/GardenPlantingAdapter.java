@@ -1,5 +1,6 @@
 package me.buck.sunflower_java.adapter;
 
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,10 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
                 .load(item.getPlant().getImageUrl())
                 .into(holder.imageView);
 
+        Resources resources = holder.itemView.getContext().getResources();
+        String water_date = resources.getString(R.string.water_date);
+//        String water_date = resources.getString(R.string.watering_next_prefix,item.getPlant());
+//        String.format(water_date,)
         // TODO: 2019/7/10  plantDate  waterDate
 
     }
