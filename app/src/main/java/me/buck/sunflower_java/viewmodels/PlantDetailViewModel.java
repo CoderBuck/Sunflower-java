@@ -1,8 +1,11 @@
 package me.buck.sunflower_java.viewmodels;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
+
+import com.blankj.utilcode.util.ThreadUtils;
 
 import me.buck.sunflower_java.data.GardenPlanting;
 import me.buck.sunflower_java.data.GardenPlantingRepository;
@@ -33,14 +36,14 @@ public class PlantDetailViewModel extends ViewModel {
 
     private void init() {
         LiveData<GardenPlanting> gardenPlantingForPlant = mGardenPlantingRepository.getGardenPlantingForPlant(mPlantId);
-        //gardenPlantingForPlant.
-        // TODO: 2019/7/10
         mIsPlanted = Transformations.map(gardenPlantingForPlant, input -> input != null);
         mPlant = mPlantRepository.getPlant(mPlantId);
     }
 
     public void addPlantToGarden() {
-        mGardenPlantingRepository.createGardenPlanting(mPlantId);
+        ThreadUtils.getIoPool().execute(() -> {
+            mGardenPlantingRepository.createGardenPlanting(mPlantId);
+        });
     }
 
 

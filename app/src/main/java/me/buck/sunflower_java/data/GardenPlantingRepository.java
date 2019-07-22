@@ -30,15 +30,23 @@ public class GardenPlantingRepository {
 
     public void createGardenPlanting(String palntId) {
         mGardenPlantingDao.insertGardenPlanting(new GardenPlanting(palntId));
+
+
     }
 
     public void removeGardenPlanting(GardenPlanting gardenPlanting) {
         mGardenPlantingDao.deleteGardenPlanting(gardenPlanting);
     }
 
-    public LiveData<GardenPlanting> getGardenPlantingForPlant(String plantId)   {return mGardenPlantingDao.getGardenPlantingForPlant(plantId);}
+    public LiveData<GardenPlanting> getGardenPlantingForPlant(String plantId) {
+        return mGardenPlantingDao.getGardenPlantingForPlant(plantId);
+    }
 
-    public LiveData<List<GardenPlanting>> getGardenPlantings()                  {return mGardenPlantingDao.getGardenPlantings();}
+    public LiveData<List<GardenPlanting>> getGardenPlantings() {
+        return mGardenPlantingDao.getGardenPlantings();
+    }
 
-    public LiveData<List<PlantAndGardenPlantings>> getPlantAndGardenPlantings() {return mGardenPlantingDao.getPlantAndGardenPlantings();}
+    public LiveData<List<PlantAndGardenPlantings>> getPlantAndGardenPlantings() {
+        return mGardenPlantingDao.getPlantAndGardenPlantings();
+    }
 }
