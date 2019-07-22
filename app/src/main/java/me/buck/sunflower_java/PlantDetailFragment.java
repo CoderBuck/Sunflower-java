@@ -29,7 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.buck.sunflower_java.util.InjectorUtils;
-import me.buck.sunflower_java.util.Utils;
+import me.buck.sunflower_java.util.CommonUtils;
 import me.buck.sunflower_java.viewmodels.PlantDetailViewModel;
 import me.buck.sunflower_java.viewmodels.PlantDetailViewModelFactory;
 
@@ -71,7 +71,7 @@ public class PlantDetailFragment extends Fragment {
             mToolbarLayout.setTitle(plant.getName());
             Glide.with(getActivity()).load(plant.getImageUrl()).into(mDetailImage);
             mPlantName.setText(plant.getName());
-            Utils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
+            CommonUtils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
             mPlantDescription.setText(plant.getDescription());
 
             if (plant == null) {

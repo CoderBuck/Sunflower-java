@@ -10,7 +10,7 @@ import me.buck.sunflower_java.R;
 /**
  * Created by buck on 2019-07-21
  */
-public class Utils {
+public class CommonUtils {
 
     public static void bindingWateringText(TextView textView, int wateringInterval) {
         Resources resources = textView.getContext().getResources();
