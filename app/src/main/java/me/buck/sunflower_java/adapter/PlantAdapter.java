@@ -32,7 +32,6 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
     @NonNull
     @Override
     public PlantAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // TODO: 2019/7/9 r.layout. list item plant
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_plant, parent, false);
         return new ViewHolder(view);
     }

@@ -20,7 +20,6 @@ public class PlantAndGardenPlantingsViewModel extends ViewModel {
         mPlantAndGardenPlantings = plantAndGardenPlantings;
     }
 
-    // TODO: 2019/7/10  
     {
         Plant plant = mPlantAndGardenPlantings.plant;
         GardenPlanting gardenPlanting = mPlantAndGardenPlantings.getGardenPlantings().get(0);

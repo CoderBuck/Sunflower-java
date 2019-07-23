@@ -15,10 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import me.buck.sunflower_java.GardenFragmentDirections;
 import me.buck.sunflower_java.R;
+import me.buck.sunflower_java.data.GardenPlanting;
+import me.buck.sunflower_java.data.Plant;
 import me.buck.sunflower_java.data.PlantAndGardenPlantings;
 
 /**
@@ -53,11 +58,22 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
                 .into(holder.imageView);
 
         Resources resources = holder.itemView.getContext().getResources();
-        String water_date = resources.getString(R.string.water_date);
-//        String water_date = resources.getString(R.string.watering_next_prefix,item.getPlant());
-//        String.format(water_date,)
-        // TODO: 2019/7/10  plantDate  waterDate
+        GardenPlanting planting = item.getGardenPlantings().get(0);
+        Date time = planting.getLastWaterDate().getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MMM d, yyyy", Locale.US);
+        String format1 = format.format(time);
+        String water_next_prefix = resources.getString(R.string.watering_next_prefix,format1);
 
+        Plant plant = item.getPlant();
+        int interval = plant.getWateringInterval();
+        String water_next_suffix = resources.getQuantityString(R.plurals.watering_next_suffix,interval,interval);
+        String water_date = resources.getString(R.string.water_date,water_next_prefix,water_next_suffix);
+        holder.waterDate.setText(water_date);
+
+        String plantName = plant.getName();
+        String format2 = format.format(planting.getPlantDate().getTime());
+        String string = resources.getString(R.string.planted_date, plantName, format2);
+        holder.plantDate.setText(string);
     }
 
     class Holder extends RecyclerView.ViewHolder {
