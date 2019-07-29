@@ -1,7 +1,8 @@
-package me.buck.sunflower_java.objectbox;
+package me.buck.sunflower_java.objectbox.entity;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import lombok.Data;
 
 /**
  * Created by gwf on 2019/7/26
@@ -36,27 +37,51 @@ public class Plant {
         this.id = id;
     }
 
-    public String getPlantId()                     { return plantId;}
+    public String getPlantId() {
+        return plantId;
+    }
 
-    public void setPlantId(String plantId)         { this.plantId = plantId;}
+    public void setPlantId(String plantId) {
+        this.plantId = plantId;
+    }
 
-    public String getName()                        { return name;}
+    public String getName() {
+        return name;
+    }
 
-    public void setName(String name)               { this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getDescription()                 { return description;}
+    public String getDescription() {
+        return description;
+    }
 
-    public void setDescription(String description) { this.description = description;}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    public int getGrowZoneNumber()                 { return growZoneNumber;}
+    public int getGrowZoneNumber() {
+        return growZoneNumber;
+    }
 
-    public void setGrowZoneNumber(int growZoneNumber)     { this.growZoneNumber = growZoneNumber;}
+    public void setGrowZoneNumber(int growZoneNumber) {
+        this.growZoneNumber = growZoneNumber;
+    }
 
-    public int getWateringInterval()                      { return wateringInterval;}
+    public int getWateringInterval() {
+        return wateringInterval;
+    }
 
-    public void setWateringInterval(int wateringInterval) { this.wateringInterval = wateringInterval;}
+    public void setWateringInterval(int wateringInterval) {
+        this.wateringInterval = wateringInterval;
+    }
 
-    public String getImageUrl()                           { return imageUrl;}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-    public void setImageUrl(String imageUrl)              { this.imageUrl = imageUrl;}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
