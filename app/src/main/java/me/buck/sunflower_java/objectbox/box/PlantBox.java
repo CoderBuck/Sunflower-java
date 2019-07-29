@@ -3,9 +3,8 @@ package me.buck.sunflower_java.objectbox.box;
 import java.util.List;
 
 import io.objectbox.Box;
-import io.objectbox.Property;
-import io.objectbox.query.Query;
 import me.buck.sunflower_java.objectbox.entity.Plant;
+import me.buck.sunflower_java.objectbox.entity.Plant_;
 
 /**
  * Created by gwf on 2019/7/29
@@ -26,11 +25,21 @@ public class PlantBox {
     }
 
     public static List<Plant> getPlantsWithGrowZoneNumber(int num) {
-        Query<Plant> build = getPlantBox().query()
+        return getPlantBox().query()
                 .filter(entity -> entity.getGrowZoneNumber() == num)
-                .build();
-        return build.find();
+                .build().find();
     }
+
+    public static List<Plant> getPlant(String plantId) {
+        return getPlantBox().query()
+                .equal(Plant_.plantId, plantId)
+                .build().find();
+    }
+
+    public static void insertAll(List<Plant> plants) {
+        getPlantBox().put(plants);
+    }
+
 
 
 }

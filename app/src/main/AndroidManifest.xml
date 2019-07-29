@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="me.buck.sunflower_java">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -15,9 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".GardenActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
+        <!--<activity android:name=".objectbox.fragment.MainActivity2"></activity>-->
+        <activity
+            android:name=".objectbox.fragment.MainActivity2"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

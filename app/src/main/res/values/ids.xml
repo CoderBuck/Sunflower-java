@@ -2,4 +2,5 @@
 <resources>
     <!--<integer name="fragment_garden">100</integer>-->
     <!--<integer name="fragment_garden">100</integer>-->
+    <item name="plant_item_type" type="id"/>
 </resources>
