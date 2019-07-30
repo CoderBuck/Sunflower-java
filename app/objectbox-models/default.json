@@ -1,0 +1,82 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:976877965494687939",
+      "lastPropertyId": "5:7186628630722490820",
+      "name": "GardenPlanting",
+      "properties": [
+        {
+          "id": "1:7975025835097279270",
+          "name": "id"
+        },
+        {
+          "id": "2:578634283426942278",
+          "name": "gardenPlantingId"
+        },
+        {
+          "id": "3:8579036625711320488",
+          "name": "plantId"
+        },
+        {
+          "id": "4:6909327579324500858",
+          "name": "plantDate"
+        },
+        {
+          "id": "5:7186628630722490820",
+          "name": "lastWaterDate"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:6695540538625323614",
+      "lastPropertyId": "7:1735127531400643474",
+      "name": "Plant",
+      "properties": [
+        {
+          "id": "1:1692240732427762386",
+          "name": "id"
+        },
+        {
+          "id": "2:7655959849459310031",
+          "name": "plantId"
+        },
+        {
+          "id": "3:2718392869763460709",
+          "name": "name"
+        },
+        {
+          "id": "4:8975263017049816313",
+          "name": "description"
+        },
+        {
+          "id": "5:6085042539021791503",
+          "name": "growZoneNumber"
+        },
+        {
+          "id": "6:6039134489755661180",
+          "name": "wateringInterval"
+        },
+        {
+          "id": "7:1735127531400643474",
+          "name": "imageUrl"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:6695540538625323614",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}
