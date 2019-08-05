@@ -37,9 +37,13 @@ public class PlantBox {
     }
 
     public static void insertAll(List<Plant> plants) {
-        getPlantBox().put(plants);
+        for (Plant plant : plants) {
+            Plant first = getPlantBox().query().equal(Plant_.plantId, plant.getPlantId()).build().findFirst();
+            if (first == null) {
+                getPlantBox().put(plant);
+            }
+        }
     }
-
 
 
 }

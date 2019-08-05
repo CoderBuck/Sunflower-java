@@ -52,6 +52,7 @@ dependencies {
 //    debugImplementation "io.objectbox:objectbox-android-objectbrowser:2.3.4"
     releaseImplementation "io.objectbox:objectbox-android:2.3.4"
     implementation "com.mikepenz:fastadapter:3.3.1"
+    implementation 'com.mikepenz:fastadapter-commons:3.3.1'
 
     // Testing dependencies
     androidTestImplementation "androidx.arch.core:core-testing:2.0.1"
