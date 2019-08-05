@@ -17,7 +17,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <!--<activity android:name=".objectbox.fragment.MainActivity2"></activity>-->
         <activity
-            android:name=".objectbox.fragment.MainActivity2"
+            android:name=".GardenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -2,13 +2,12 @@ package me.buck.sunflower_java.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import java.util.List;
 
-import me.buck.sunflower_java.data.Plant;
-import me.buck.sunflower_java.data.PlantRepository;
+import me.buck.sunflower_java.objectbox.box.PlantBox;
+import me.buck.sunflower_java.objectbox.entity.Plant;
 
 /**
  * Created by gwf on 2019/7/15
@@ -16,22 +15,21 @@ import me.buck.sunflower_java.data.PlantRepository;
 public class PlantListViewModel extends ViewModel {
     private static final int NO_GROW_ZONE = -1;
 
-    private PlantRepository          mPlantRepository;
-    private MutableLiveData<Integer> mGrowZoneNumber = new MutableLiveData<>();
-    private LiveData<List<Plant>>    mPlants;
+    private MutableLiveData<Integer>     mGrowZoneNumber = new MutableLiveData<>();
+    private MutableLiveData<List<Plant>> mPlants;
 
-    public PlantListViewModel(PlantRepository plantRepository) {
-        mPlantRepository = plantRepository;
-
+    public PlantListViewModel() {
         mGrowZoneNumber.setValue(NO_GROW_ZONE);
-        mPlants = Transformations.switchMap(mGrowZoneNumber, num -> {
-            if (num == NO_GROW_ZONE) {
-                return plantRepository.getPlants();
-            } else {
-                return plantRepository.getPlantsWithGrowZoneNumber(num);
-            }
-        });
+        Integer num = mGrowZoneNumber.getValue();
+        if (num == NO_GROW_ZONE) {
+            List<Plant> plants = PlantBox.getPlants();
+            mPlants.setValue(plants);
+        } else {
+            List<Plant> plants = PlantBox.getPlantsWithGrowZoneNumber(num);
+            mPlants.setValue(plants);
+        }
     }
+
 
     public void setGrowZoneNumber(int number) {
         mGrowZoneNumber.setValue(number);
@@ -50,10 +48,6 @@ public class PlantListViewModel extends ViewModel {
         return NO_GROW_ZONE;
     }
 
-    public PlantRepository getPlantRepository() {
-        return mPlantRepository;
-    }
-
     public MutableLiveData<Integer> getGrowZoneNumber() {
         return mGrowZoneNumber;
     }
@@ -61,4 +55,6 @@ public class PlantListViewModel extends ViewModel {
     public LiveData<List<Plant>> getPlants() {
         return mPlants;
     }
+
+
 }
