@@ -17,21 +17,14 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ShareCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import me.buck.sunflower_java.util.InjectorUtils;
-import me.buck.sunflower_java.util.CommonUtils;
-import me.buck.sunflower_java.viewmodels.PlantDetailViewModel;
-import me.buck.sunflower_java.viewmodels.PlantDetailViewModelFactory;
 
 /**
  * Created by buck on 2019-06-18
@@ -50,7 +43,7 @@ public class PlantDetailFragment extends Fragment {
 
     private PlantDetailFragmentArgs mArgs;
     private String                  mShareText;
-    private PlantDetailViewModel    mViewModel;
+    //private PlantDetailViewModel    mViewModel;
     private Unbinder                mUnbinder;
 
     @Override
@@ -64,27 +57,27 @@ public class PlantDetailFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.plant_detail_fragment, container, false);
         mUnbinder = ButterKnife.bind(this, inflate);
         mArgs = PlantDetailFragmentArgs.fromBundle(getArguments());
-        PlantDetailViewModelFactory factory = InjectorUtils
-                .providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId());
-        mViewModel = ViewModelProviders.of(this, factory).get(PlantDetailViewModel.class);
-        mViewModel.getPlant().observe(this, plant -> {
-            mToolbarLayout.setTitle(plant.getName());
-            Glide.with(getActivity()).load(plant.getImageUrl()).into(mDetailImage);
-            mPlantName.setText(plant.getName());
-            CommonUtils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
-            CommonUtils.bindingHtml(mPlantDescription,plant.getDescription());
-
-            if (plant == null) {
-                mShareText = "";
-            } else {
-                mShareText = getString(R.string.share_text_plant, plant.getName());
-            }
-        });
-
-        mFab.setOnClickListener(v -> {
-            mViewModel.addPlantToGarden();
-            Snackbar.make(v, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show();
-        });
+        //PlantDetailViewModelFactory factory = InjectorUtils
+        //        .providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId());
+        //mViewModel = ViewModelProviders.of(this, factory).get(PlantDetailViewModel.class);
+        //mViewModel.getPlant().observe(this, plant -> {
+        //    mToolbarLayout.setTitle(plant.getName());
+        //    Glide.with(getActivity()).load(plant.getImageUrl()).into(mDetailImage);
+        //    mPlantName.setText(plant.getName());
+        //    CommonUtils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
+        //    CommonUtils.bindingHtml(mPlantDescription,plant.getDescription());
+        //
+        //    if (plant == null) {
+        //        mShareText = "";
+        //    } else {
+        //        mShareText = getString(R.string.share_text_plant, plant.getName());
+        //    }
+        //});
+        //
+        //mFab.setOnClickListener(v -> {
+        //    mViewModel.addPlantToGarden();
+        //    Snackbar.make(v, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show();
+        //});
         setHasOptionsMenu(true);
         return inflate;
     }

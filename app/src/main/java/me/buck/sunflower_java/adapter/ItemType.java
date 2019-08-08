@@ -6,4 +6,5 @@ package me.buck.sunflower_java.adapter;
 public class ItemType {
 
     public static final int GardenPlantingItem = 1;
+    public static final int PlantingItem       = 2;
 }

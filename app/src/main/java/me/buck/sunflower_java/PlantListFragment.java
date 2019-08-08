@@ -13,12 +13,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.adapters.ItemAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import me.buck.sunflower_java.adapter.PlantAdapter;
-import me.buck.sunflower_java.util.InjectorUtils;
-import me.buck.sunflower_java.viewmodels.PlantListViewModel;
+import me.buck.sunflower_java.adapter.PlantItem;
+import me.buck.sunflower_java.objectbox.box.PlantBox;
+import me.buck.sunflower_java.objectbox.entity.Plant;
 
 /**
  * Created by buck on 2019-06-18
@@ -28,25 +34,28 @@ public class PlantListFragment extends Fragment {
 
     @BindView(R.id.plant_list) RecyclerView mPlantList;
 
-    private PlantListViewModel mViewModel;
     private Unbinder mUnbinder;
+
+    private ItemAdapter<PlantItem> mItemAdapter;
+    private FastAdapter<PlantItem> mFastAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View inflate = inflater.inflate(R.layout.plant_list_fragment, container, false);
-        mUnbinder = ButterKnife.bind(this,inflate);
-        mViewModel = InjectorUtils.providePlantListViewModelFactory(getContext()).create(PlantListViewModel.class);
+        mUnbinder = ButterKnife.bind(this, inflate);
 
-        PlantAdapter adapter = new PlantAdapter();
-        mPlantList.setAdapter(adapter);
+        mItemAdapter = new ItemAdapter<>();
+        mFastAdapter = FastAdapter.with(mItemAdapter);
+        mFastAdapter.withAttachDefaultListeners(false);
+        mPlantList.setAdapter(mFastAdapter);
 
-        mViewModel.getPlants().observe(this, plants -> {
-            if (plants != null) {
-                adapter.submitList(plants);
-            }
-        });
-
+        List<Plant> plantList = PlantBox.getPlants();
+        ArrayList<PlantItem> items = new ArrayList<>();
+        for (Plant plant : plantList) {
+            items.add(new PlantItem(plant));
+        }
+        mItemAdapter.add(items);
         setHasOptionsMenu(true);
         return inflate;
     }
