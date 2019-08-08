@@ -8,6 +8,7 @@ import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,6 +28,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         Utils.init(this);
+        AndroidThreeTen.init(this);
         ObjectBox.init(this);
 
         boolean db_init = SPUtils.getInstance().getBoolean("db_init");

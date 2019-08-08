@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.buck.sunflower_java.PlantListFragmentDirections;
 import me.buck.sunflower_java.R;
 import me.buck.sunflower_java.objectbox.entity.Plant;
 
@@ -71,8 +74,10 @@ public class PlantItem extends ModelAbstractItem<Plant, PlantItem, PlantItem.Hol
                 PlantItem item = FastAdapter.getHolderAdapterItem(this);
                 Plant plant = item.getModel();
                 Log.d(TAG, "Holder: plant = " + plant.getPlantId());
+                Navigation.findNavController(itemView)
+                        .navigate(PlantListFragmentDirections
+                                .actionPlantListFragmentToPlantDetailFragment(plant.getPlantId()));
             });
-
         }
     }
 }

@@ -18,13 +18,27 @@ import androidx.core.app.ShareCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneOffset;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.buck.sunflower_java.objectbox.box.GardenPlantingBox;
+import me.buck.sunflower_java.objectbox.box.PlantBox;
+import me.buck.sunflower_java.objectbox.entity.GardenPlanting;
+import me.buck.sunflower_java.objectbox.entity.Plant;
+import me.buck.sunflower_java.util.CommonUtils;
 
 /**
  * Created by buck on 2019-06-18
@@ -43,7 +57,6 @@ public class PlantDetailFragment extends Fragment {
 
     private PlantDetailFragmentArgs mArgs;
     private String                  mShareText;
-    //private PlantDetailViewModel    mViewModel;
     private Unbinder                mUnbinder;
 
     @Override
@@ -57,27 +70,30 @@ public class PlantDetailFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.plant_detail_fragment, container, false);
         mUnbinder = ButterKnife.bind(this, inflate);
         mArgs = PlantDetailFragmentArgs.fromBundle(getArguments());
-        //PlantDetailViewModelFactory factory = InjectorUtils
-        //        .providePlantDetailViewModelFactory(requireActivity(), mArgs.getPlantId());
-        //mViewModel = ViewModelProviders.of(this, factory).get(PlantDetailViewModel.class);
-        //mViewModel.getPlant().observe(this, plant -> {
-        //    mToolbarLayout.setTitle(plant.getName());
-        //    Glide.with(getActivity()).load(plant.getImageUrl()).into(mDetailImage);
-        //    mPlantName.setText(plant.getName());
-        //    CommonUtils.bindingWateringText(mPlantWatering,plant.getWateringInterval());
-        //    CommonUtils.bindingHtml(mPlantDescription,plant.getDescription());
-        //
-        //    if (plant == null) {
-        //        mShareText = "";
-        //    } else {
-        //        mShareText = getString(R.string.share_text_plant, plant.getName());
-        //    }
-        //});
-        //
-        //mFab.setOnClickListener(v -> {
-        //    mViewModel.addPlantToGarden();
-        //    Snackbar.make(v, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show();
-        //});
+        String plantId = mArgs.getPlantId();
+        Plant plant = PlantBox.getPlant(plantId);
+
+        Glide.with(this)
+                .load(plant.getImageUrl())
+                .into(mDetailImage);
+
+        mToolbarLayout.setTitle(plant.getName());
+        mPlantName.setText(plant.getName());
+        CommonUtils.bindingWateringText(mPlantWatering, plant.getWateringInterval());
+        CommonUtils.bindingHtml(mPlantDescription, plant.getDescription());
+        mShareText = getString(R.string.share_text_plant, plant.getName());
+
+        mFab.setOnClickListener(v -> {
+            GardenPlanting gardenPlanting = new GardenPlanting();
+            gardenPlanting.setPlantId(plantId);
+            LocalDateTime localDateTime = LocalDateTime.now();
+            int interval = plant.getWateringInterval();
+            LocalDateTime plusDays = localDateTime.plusDays(interval);
+            gardenPlanting.setPlantDate(localDateTime.toString());
+            gardenPlanting.setLastWaterDate(plusDays.toString());
+            GardenPlantingBox.insertGardenPlanting(gardenPlanting);
+            Snackbar.make(v, R.string.added_plant_to_garden, Snackbar.LENGTH_LONG).show();
+        });
         setHasOptionsMenu(true);
         return inflate;
     }
@@ -92,7 +108,7 @@ public class PlantDetailFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_share) {
-            Intent chooserIntent = ShareCompat.IntentBuilder.from(getActivity())
+            Intent chooserIntent = ShareCompat.IntentBuilder.from(requireActivity())
                     .setText(mShareText)
                     .setType("text/plain")
                     .createChooserIntent();
