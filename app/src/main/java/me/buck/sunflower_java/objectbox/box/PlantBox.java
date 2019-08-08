@@ -30,10 +30,10 @@ public class PlantBox {
                 .build().find();
     }
 
-    public static List<Plant> getPlant(String plantId) {
+    public static Plant getPlant(String plantId) {
         return getPlantBox().query()
                 .equal(Plant_.plantId, plantId)
-                .build().find();
+                .build().findFirst();
     }
 
     public static void insertAll(List<Plant> plants) {
