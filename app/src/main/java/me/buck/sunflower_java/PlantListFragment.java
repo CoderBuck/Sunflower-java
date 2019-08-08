@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IItemAdapter;
 import com.mikepenz.fastadapter.adapters.ItemAdapter;
+import com.mikepenz.fastadapter.listeners.ItemFilterListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,17 @@ public class PlantListFragment extends Fragment {
         mFastAdapter.withAttachDefaultListeners(false);
         mPlantList.setAdapter(mFastAdapter);
 
+        mItemAdapter.getItemFilter().withFilterPredicate(new IItemAdapter.Predicate<PlantItem>() {
+            @Override
+            public boolean filter(PlantItem item, @javax.annotation.Nullable CharSequence constraint) {
+                try {
+                    return item.getModel().getGrowZoneNumber() == Integer.valueOf(constraint.toString());
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        });
+
         List<Plant> plantList = PlantBox.getPlants();
         ArrayList<PlantItem> items = new ArrayList<>();
         for (Plant plant : plantList) {
@@ -66,12 +79,17 @@ public class PlantListFragment extends Fragment {
         inflater.inflate(R.menu.menu_plant_list, menu);
     }
 
+    boolean filter = true;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.filter_zone) {
-
-            return true;
+            if (filter) {
+                mItemAdapter.filter("9");
+            } else {
+                mItemAdapter.filter("");
+            }
+            filter = !filter;
         }
 
         return super.onOptionsItemSelected(item);

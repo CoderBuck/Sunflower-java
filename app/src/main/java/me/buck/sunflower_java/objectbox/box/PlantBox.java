@@ -1,5 +1,7 @@
 package me.buck.sunflower_java.objectbox.box;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import io.objectbox.Box;
@@ -21,7 +23,21 @@ public class PlantBox {
     }
 
     public static List<Plant> getPlants() {
-        return getPlantBox().getAll();
+
+//        List<Plant> plants = getPlantBox().getAll();
+//        Collections.sort(plants, new Comparator<Plant>() {
+//            @Override
+//            public int compare(Plant o1, Plant o2) {
+//                return String.CASE_INSENSITIVE_ORDER.compare(o1.getName(), o2.getName());
+//            }
+//        });
+
+        List<Plant> plants1 = getPlantBox().query()
+                .order(Plant_.name)
+                .build()
+                .find();
+
+        return plants1;
     }
 
     public static List<Plant> getPlantsWithGrowZoneNumber(int num) {
