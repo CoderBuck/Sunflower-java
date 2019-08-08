@@ -2,7 +2,6 @@ package me.buck.sunflower_java.objectbox.entity;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
-import lombok.Data;
 
 /**
  * Created by gwf on 2019/7/26

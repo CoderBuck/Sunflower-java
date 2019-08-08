@@ -2,6 +2,7 @@ package me.buck.sunflower_java;
 
 import android.app.Application;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.Gson;
@@ -13,12 +14,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-import me.buck.sunflower_java.data.AppDatabase;
 import me.buck.sunflower_java.objectbox.box.ObjectBox;
 import me.buck.sunflower_java.objectbox.box.PlantBox;
 import me.buck.sunflower_java.objectbox.entity.Plant;
-
-import static me.buck.sunflower_java.workers.SeedDatabaseWorker.PLANT_DATA_FILENAME;
 
 /**
  * Created by gwf on 2019/7/22
@@ -31,22 +29,25 @@ public class App extends Application {
         Utils.init(this);
         ObjectBox.init(this);
 
-//        PlantBox.insertAll();
-        ThreadUtils.getIoPool().execute(() -> {
-            try {
-                InputStream open = getApplicationContext().getAssets().open(PLANT_DATA_FILENAME);
+        boolean db_init = SPUtils.getInstance().getBoolean("db_init");
+        if (!db_init) {
+            ThreadUtils.getIoPool().execute(() -> {
+                try {
+                    InputStream open = getApplicationContext().getAssets().open("plants.json");
 
-                JsonReader jsonReader = new JsonReader(new InputStreamReader(open));
-                TypeToken<List<Plant>> token = new TypeToken<List<Plant>>() {};
+                    JsonReader jsonReader = new JsonReader(new InputStreamReader(open));
+                    TypeToken<List<Plant>> token = new TypeToken<List<Plant>>() {};
 
-                Gson gson = new Gson();
-                List<Plant> plants = gson.fromJson(jsonReader, token.getType());
-                PlantBox.insertAll(plants);
+                    Gson gson = new Gson();
+                    List<Plant> plants = gson.fromJson(jsonReader, token.getType());
+                    PlantBox.insertAll(plants);
+                    SPUtils.getInstance().put("db_init", true);
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
 
-            }
-        });
+                }
+            });
+        }
     }
 }
