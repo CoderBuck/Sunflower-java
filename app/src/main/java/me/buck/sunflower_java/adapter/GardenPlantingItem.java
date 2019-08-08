@@ -1,5 +1,6 @@
 package me.buck.sunflower_java.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,6 +47,7 @@ public class GardenPlantingItem extends ModelAbstractItem<GardenPlanting, Garden
         return R.layout.list_item_garden_planting;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void bindView(Holer holder, List<Object> payloads) {
         super.bindView(holder, payloads);
